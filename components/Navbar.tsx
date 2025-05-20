@@ -1,11 +1,13 @@
-// components/Navbar.tsx
 'use client';
+
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, isSignedIn } = useUser();
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md fixed top-0 w-full z-50">
@@ -20,22 +22,38 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6 text-sm font-medium">
           <Link href="/" className="hover:text-pink-400 transition">Home</Link>
-        
+          <Link href="/explore" className="hover:text-pink-400 transition">Explore</Link>
           <Link href="/about" className="hover:text-pink-400 transition">About</Link>
         </div>
 
-        {/* Auth Buttons */}
-        <div className="hidden md:flex space-x-4">
-          <Link href="/login">
-            <button className="text-sm px-4 py-2 border border-white rounded-full hover:bg-pink-500 hover:border-pink-500 transition">
-              Login
-            </button>
-          </Link>
-          <Link href="/signup">
-            <button className="text-sm px-4 py-2 bg-pink-500 rounded-full hover:bg-pink-600 transition">
-              Sign Up
-            </button>
-          </Link>
+        {/* Auth Buttons or User Profile */}
+        <div className="hidden md:flex items-center space-x-4">
+          {isSignedIn && user ? (
+            <>
+              <img
+                src={user.imageUrl || "/default-profile.png"}
+                alt="User Profile"
+                className="w-10 h-10 rounded-full border-2 border-pink-500"
+              />
+              <span className="hidden sm:inline text-gray-300 text-sm">
+                {user.primaryEmailAddress?.emailAddress}
+              </span>
+              <UserButton afterSignOutUrl="/" />
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <button className="text-sm px-4 py-2 border border-white rounded-full hover:bg-pink-500 hover:border-pink-500 transition">
+                  Login
+                </button>
+              </Link>
+              <Link href="/signup">
+                <button className="text-sm px-4 py-2 bg-pink-500 rounded-full hover:bg-pink-600 transition">
+                  Sign Up
+                </button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Hamburger Icon */}
@@ -54,8 +72,23 @@ export default function Navbar() {
           <Link href="/explore" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Explore</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">About</Link>
           <hr className="border-gray-700" />
-          <Link href="/login" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Login</Link>
-          <Link href="/signup" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Sign Up</Link>
+
+          {isSignedIn && user ? (
+            <div className="flex items-center space-x-3">
+              <img
+                src={user.imageUrl || "/default-profile.png"}
+                alt="User Profile"
+                className="w-10 h-10 rounded-full border-2 border-pink-500"
+              />
+              <span className="text-gray-300 text-sm">{user.primaryEmailAddress?.emailAddress}</span>
+              <UserButton afterSignOutUrl="/" />
+            </div>
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Login</Link>
+              <Link href="/signup" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Sign Up</Link>
+            </>
+          )}
         </div>
       )}
     </nav>

@@ -30,14 +30,14 @@ export default function Hero() {
           CasualCrave is the bold, no-judgment space to spark flirty chats, fun connections, and real chemistry. Join the movement.
         </p>
         <div className="flex justify-center space-x-4">
-          <Link href="/signup">
+          <Link href="/explore">
             <button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-full transition">
       Reserve 
             </button>
           </Link>
           <Link href="/explore">
             <button className="border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-semibold px-6 py-3 rounded-full transition">
-            SignUp
+            explore
             </button>
           </Link>
         </div>
