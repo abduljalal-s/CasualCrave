@@ -31,8 +31,8 @@ export default function AboutPage() {
           <Link href="/" className="hover:text-pink-400 transition">
             Home
           </Link>
-          <Link href="/explore" className="hover:text-pink-400 transition">
-            Explore
+          <Link href="/mng" className="hover:text-pink-400 transition">
+            Mng
           </Link>
         </div>
         <div className="text-sm text-gray-400 hidden sm:block">

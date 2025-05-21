@@ -22,7 +22,7 @@ export default function Hero() {
       </div>
 
       {/* Main Hero Content */}
-      <div className="max-w-4xl text-center z-10">
+      <div className="max-w-4xl content-center z-10">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-pink-500 drop-shadow-lg">
           Where Craving Meets Connection
         </h1>
@@ -35,11 +35,11 @@ export default function Hero() {
               Get Started
             </button>
           </Link>
-          <Link href="/explore">
+          {/* <Link href="/explore">
             <button className="border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-semibold px-6 py-3 rounded-full transition">
               explore
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </section>
