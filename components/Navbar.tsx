@@ -21,9 +21,9 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-16 text-md font-extrabold text-center">
-          <Link href="/" className=" text2xla hover:text-pink-400 transition hover:underline">Home</Link>  
-          <Link href="/mng" className="  text-1xl hover:text-pink-400 transition hover:underline"> Mng</Link>
-          <Link href="/about" className=" text-1xl hover:text-pink-400 transition hover:underline">About</Link>
+          <Link href="/" className=" text2xla hover:text-pink-400 transition hover:underline">Home.</Link>  
+          <Link href="/mng" className="  text-1xl hover:text-pink-400 transition hover:underline"> Mng.</Link>
+          <Link href="/about" className=" text-1xl hover:text-pink-400 transition hover:underline">About.</Link>
           
         </div>
 

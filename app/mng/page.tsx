@@ -59,7 +59,6 @@ export default function ManagementPage() {
         </section>
 
         {/* Admin Dashboard */}
-
         {adminView && (
           <section className="bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-10">
             <div className="text-center">
