@@ -20,23 +20,20 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 text-sm font-medium">
-          <Link href="/" className="hover:text-pink-400 transition">Home</Link>
-          <Link href="/explore" className="hover:text-pink-400 transition">Explore</Link>
-          <Link href="/about" className="hover:text-pink-400 transition">About</Link>
+        <div className="hidden md:flex space-x-6 text-sm font-medium text-center">
+          <Link href="/" className="hover:text-pink-400 transition hover:underline">Home</Link>  
+          <Link href="/mng" className="hover:text-pink-400 transition hover:underline"> Mng</Link>
+          <Link href="/about" className="hover:text-pink-400 transition hover:underline">About</Link>
+          
         </div>
 
         {/* Auth Buttons or User Profile */}
         <div className="hidden md:flex items-center space-x-4">
           {isSignedIn && user ? (
             <>
-              <img
-                src={user.imageUrl || "/default-profile.png"}
-                alt="User Profile"
-                className="w-10 h-10 rounded-full border-2 border-pink-500"
-              />
+          
               <span className="hidden sm:inline text-gray-300 text-sm">
-                {user.primaryEmailAddress?.emailAddress}
+            
               </span>
               <UserButton afterSignOutUrl="/" />
             </>
@@ -68,20 +65,24 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-black px-6 py-4 space-y-4 text-sm font-medium">
-          <Link href="/" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Home</Link>
+          <Link href="/Home" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Home</Link>
+
+
           <Link href="/explore" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Explore</Link>
+
+
           <Link href="/about" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">About</Link>
+
+
+           <Link href="/mng" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">mng</Link>
+
+
           <hr className="border-gray-700" />
 
           {isSignedIn && user ? (
             <div className="flex items-center space-x-3">
-              <img
-                src={user.imageUrl || "/default-profile.png"}
-                alt="User Profile"
-                className="w-10 h-10 rounded-full border-2 border-pink-500"
-              />
-              <span className="text-gray-300 text-sm">{user.primaryEmailAddress?.emailAddress}</span>
-              <UserButton afterSignOutUrl="/" />
+              <span className="text-gray-300 text-sm">Night</span>
+              <UserButton/>
             </div>
           ) : (
             <>
