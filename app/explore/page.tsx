@@ -2,6 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -64,7 +65,7 @@ useEffect(() => {
         </Link>
         <div className="flex items-center space-x-3 text-white">
           {user?.imageUrl && (
-            <img
+            <Image
               src={user.imageUrl}
               alt="User Profile"
               className="w-10 h-10 rounded-full border-2 border-pink-500"
@@ -84,7 +85,7 @@ useEffect(() => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden text-center p-6">
-            <img
+            <Image
               src="/images/profile1.jpg"
               alt="Profile 1"
               className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-pink-500 mb-4"
@@ -100,10 +101,12 @@ useEffect(() => {
             </Link>
           
           </div>
-          <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden text-center p-6">
-            <img
+            <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden text-center p-6">
+            <Image
               src="/images/profile2.jpg"
               alt="Profile 2"
+              width={160}
+              height={160}
               className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-pink-500 mb-4"
             />
             <h2 className="text-2xl font-semibold mb-2">lexxie, 24</h2>
@@ -115,7 +118,7 @@ useEffect(() => {
             >
               Message on Telegram
             </Link>
-          </div>
+            </div>
         </div>
         <p className="text-bold text-center text-gray-400 italic mb-2 mt-4">
   🔒 All submissions are verified manually. We never ask for sensitive info and only accept valid gift cards. 
