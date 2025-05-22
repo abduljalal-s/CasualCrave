@@ -35,9 +35,7 @@ export default function AboutPage() {
             Mng
           </Link>
         </div>
-        <div className="text-sm text-gray-400 hidden sm:block">
-          Signed in as: <span className="text-white font-semibold">{user?.email}</span>
-        </div>
+       
       </nav>
 
       {/* About Section */}

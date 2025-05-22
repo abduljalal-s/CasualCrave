@@ -19,13 +19,15 @@ export default function Explore() {
   const [isLoading, setIsLoading] = useState(false);
   
 
-  const handleSubmitGiftCard = () => {
-    if (giftCardID.trim() !== "") {
-      setSubmittedCards((prev) => [...prev, giftCardID]);
-      setGiftCardID(""); // Only reset the ID
-      alert("Gift card submitted successfully!");
-    }
-  };
+const handleSubmitGiftCard = () => {
+  if (giftCardID.trim() !== "") {
+    const updatedCards = [...submittedCards, giftCardID];
+    setSubmittedCards(updatedCards);
+    localStorage.setItem("submittedCards", JSON.stringify(updatedCards)); // ✅ Save to localStorage
+    setGiftCardID(""); // Clear input
+    alert("Gift card submitted successfully!");
+  }
+};
 
 useEffect(() => {
   if (isLoaded && !isSignedIn) {
@@ -104,7 +106,7 @@ useEffect(() => {
               alt="Profile 2"
               className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-pink-500 mb-4"
             />
-            <h2 className="text-2xl font-semibold mb-2">Kiara, 24</h2>
+            <h2 className="text-2xl font-semibold mb-2">lexxie, 24</h2>
             <p className="text-gray-300 mb-4">Let’s skip the small talk 😘</p>
             <Link
               href="https://t.me/kiara77990"
@@ -132,7 +134,9 @@ useEffect(() => {
           </ul>
          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center mt-8">
 
-  {[
+  {
+  
+[
     {
       id: "GiftCard",
       title: "Gift Cards",
@@ -194,35 +198,39 @@ useEffect(() => {
                 </button>
               ))}
             </div>
-           
- {selectedPlan === "giftcard" && (
-              <div className="space-y-4 text-left">
-                <p className="text-sm text-gray-400 italic mb-4">
+ {["giftcard", "priority"].includes(selectedPlan) && (
+  <div className="space-y-4 text-left">
+    <p className="text-sm text-gray-400 italic mb-4">
       ✔️ CasualCrave is verified and trusted by over 1,000 users. Submitting a valid gift card confirms your spot and filters unserious requests.
     </p> 
 
     <p className="text-sm text-gray-400 italic mb-4">
-              Please note: All payments are non-refundable and confirm your booking.</p>
+      Please note: after submitting your gift card, you will receive a confirmation message on Telegram. This is to ensure that you are a real user and not a bot.
+    </p>
+     <p className="text-sm text-gray-400 italic mb-4">
+      Please note: All payments are non-refundable and confirm your booking.
+    </p>
 
-                <label className="block text-sm text-gray-300">
-                  Enter Gift Card ID
-                  <input
-                    type="text"
-                    value={giftCardID}
-                    onChange={(e) => setGiftCardID(e.target.value)}
-                    className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                    placeholder="XXXX-XXXX-XXXX"
-                  />
-                </label>
+    <label className="block text-sm text-gray-300">
+      Enter Gift Card ID
+      <input
+        type="text"
+        value={giftCardID}
+        onChange={(e) => setGiftCardID(e.target.value)}
+        className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        placeholder="XXXX-XXXX-XXXX"
+      />
+    </label>
 
-                <button
-                  onClick={handleSubmitGiftCard}
-                  className="mt-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full transition"
-                >
-                  Submit Gift Card
-                </button>
-              </div>
-            )}
+    <button
+      onClick={handleSubmitGiftCard}
+      className="mt-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full transition"
+    >
+      Submit Gift Card
+    </button>
+  </div>
+)}
+
 {isLoading ? (
   <div className="text-center text-pink-400 font-semibold animate-pulse">
        ...
@@ -262,7 +270,22 @@ useEffect(() => {
                   </li>
                 ))}
               </ul>
+              {adminView && (
+  <button
+    onClick={() => {
+      localStorage.removeItem("submittedCards");
+      setSubmittedCards([]);
+    }}
+    className="mt-4 mb-6 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full"
+  >
+    Clear All Gift Cards (Admin Only)
+  </button>
+)}
+              <p className="text-sm text-gray-500 italic">
+                Note: Only admins can see this section.
+              </p>
             </section>
+            
           )}
 
           <p className="mt-8 text-gray-500 text-sm text-center italic">
