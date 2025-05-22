@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import Head from "next/head";
@@ -11,10 +12,24 @@ const getCurrentUser = () => {
 
 export default function ManagementPage() {
   const [adminView, setAdminView] = useState(false);
+  const [submittedCards, setSubmittedCards] = useState<string[]>([]);
 
   useEffect(() => {
     const user = getCurrentUser();
     setAdminView(user?.email === "nightmadecoder@gmail.com");
+
+    // Load submitted cards from localStorage
+    const stored = localStorage.getItem("submittedCards");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setSubmittedCards(parsed);
+        }
+      } catch (e) {
+        console.error("Failed to parse submittedCards from localStorage");
+      }
+    }
   }, []);
 
   return (
@@ -104,10 +119,24 @@ export default function ManagementPage() {
             <div>
               <h4 className="text-lg font-semibold text-white mb-3">📥 Recent Submissions</h4>
               <ul className="bg-gray-700 p-4 rounded-xl text-sm text-left space-y-2 font-mono max-h-48 overflow-y-auto">
-                <li className="text-pink-400">XXXX-ABCD-1234</li>
-                <li className="text-pink-400">XXXX-EFGH-5678</li>
-                <li className="text-pink-400">XXXX-IJKL-9012</li>
-                {/* Add dynamic integration later */}
+                {submittedCards.length > 0 ? (
+                  submittedCards.map((card, idx) => (
+                    
+                    <li key={idx} className="text-pink-400">{card}</li>
+                  ))
+                ) : (
+                  <li className="text-gray-400 italic">No gift cards submitted yet.</li>
+                  
+                )}
+      <button
+    onClick={() => {
+      localStorage.removeItem("submittedCards");
+      setSubmittedCards([]);
+    }}
+    className="mt-4 mb-6 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full"
+  >
+    Clear All Gift Cards (Admin Only)
+  </button>
               </ul>
             </div>
           </section>

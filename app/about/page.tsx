@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import Head from "next/head";
@@ -10,7 +11,7 @@ const getCurrentUser = () => {
 };
 
 export default function AboutPage() {
-  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [, setUser] = useState<{ email: string } | null>(null);
 
   useEffect(() => {
     const currentUser = getCurrentUser();

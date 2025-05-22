@@ -1,0 +1,109 @@
+'use client';
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function NextLevel() {
+  const [selectedProfile, setSelectedProfile] = useState<any>(null);
+  const [selectedExperiences, setSelectedExperiences] = useState<string[]>([]);
+  const router = useRouter();
+
+  const experiences = [
+    "Dinner Date",
+    "Massage",
+    "Private Chat",
+    "Roleplay",
+    "Late Night Vibes",
+  ];
+
+  const handleToggleExperience = (experience: string) => {
+    setSelectedExperiences((prev) =>
+      prev.includes(experience)
+        ? prev.filter((exp) => exp !== experience)
+        : [...prev, experience]
+    );
+  };
+
+  const totalCost = selectedExperiences.length * 20;
+
+  const handleContinueToPayment = () => {
+    // Save to localStorage or use global state if needed
+    localStorage.setItem("selectedExperiences", JSON.stringify(selectedExperiences));
+    localStorage.setItem("totalExperienceCost", totalCost.toString());
+
+    // Redirect user to Explore (scroll to payment section using hash)
+    router.push("/explore#payment");
+  };
+
+  useEffect(() => {
+    const profile = localStorage.getItem("selectedProfile");
+    if (profile) {
+      setSelectedProfile(JSON.parse(profile));
+    }
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-gray-900 text-white py-20 px-6">
+      <h1 className="text-4xl text-pink-500 font-bold text-center mb-6">
+        Next-Level Experiences
+      </h1>
+
+      {selectedProfile && (
+        <div className="text-center mb-10">
+          <p className="text-gray-300 mb-2">
+            You're booking with <span className="text-white font-bold">{selectedProfile.name}</span>
+          </p>
+          <img
+            src={selectedProfile.image}
+            alt={selectedProfile.name}
+            className="w-20 h-20 rounded-full border-4 border-pink-500 mx-auto"
+          />
+        </div>
+      )}
+
+      <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        {experiences.map((exp) => (
+          <button
+            key={exp}
+            onClick={() => handleToggleExperience(exp)}
+            className={`px-4 py-3 rounded-lg border text-lg transition duration-300 ${
+              selectedExperiences.includes(exp)
+                ? "bg-pink-600 border-pink-400 text-white"
+                : "bg-gray-800 border-gray-600 hover:border-pink-400"
+            }`}
+          >
+            {exp}
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-gray-800 p-6 rounded-xl shadow-lg max-w-xl mx-auto text-center">
+        <h2 className="text-2xl font-bold mb-4 text-pink-500">Summary</h2>
+        {selectedExperiences.length > 0 ? (
+          <ul className="mb-4 text-left text-white">
+            {selectedExperiences.map((exp, idx) => (
+              <li key={idx} className="flex justify-between py-1 border-b border-gray-700">
+                <span>{exp}</span>
+                <span>€20</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-400">No experiences selected.</p>
+        )}
+
+        <div className="text-xl font-bold text-white mb-4">
+          Total: €{totalCost}
+        </div>
+
+        <button
+          onClick={handleContinueToPayment}
+          className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full transition"
+          disabled={selectedExperiences.length === 0}
+        >
+          Continue to Payment
+        </button>
+      </div>
+    </main>
+  );
+}
