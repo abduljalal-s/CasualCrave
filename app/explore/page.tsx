@@ -65,11 +65,11 @@ export default function Explore() {
 
   const profiles = [
     {
-      name: "Sophie",
+      name: "Kiara",
       age: 23,
       desc: "Adventurous and open-minded. Let’s vibe 🌙",
       image: "/images/profile1.jpg",
-      telegram: "sophied699",
+      telegram: "kiara77990",
     },
     {
       name: "Lexxie",
