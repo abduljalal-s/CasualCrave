@@ -69,7 +69,7 @@ export default function Explore() {
       age: 23,
       desc: "Adventurous and open-minded. Let’s vibe 🌙",
       image: "/images/profile1.jpg",
-      telegram: "kiara77990",
+      telegram: "Kiara77990",
     },
     {
       name: "Lexxie",
