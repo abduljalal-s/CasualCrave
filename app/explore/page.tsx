@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import { sendGiftCardEmail } from "@/lib/sendGiftCardEmail";
 import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import Link from "next/link";
@@ -11,8 +12,6 @@ import { FaCheckCircle } from "react-icons/fa";
 
 export default function Explore() {
   const [giftCardID, setGiftCardID] = useState("");
-  const [adminView, setAdminView] = useState(false);
-  const [submittedCards, setSubmittedCards] = useState<string[]>([]);
   const { isSignedIn, isLoaded, user } = useUser();
   const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState<string>("");
@@ -28,20 +27,27 @@ export default function Explore() {
     telegram: string;
   }) => {
     setSelectedProfile(profile.telegram);
-    localStorage.setItem("selectedProfile", JSON.stringify(profile));
   };
 
-  const handleSubmitGiftCard = () => {
+  const handleSubmitGiftCard = async () => {
     if (giftCardID.trim() !== "" && selectedProfile !== "") {
-      const updatedCards = [...submittedCards, giftCardID];
-      setSubmittedCards(updatedCards);
-      localStorage.setItem("submittedCards", JSON.stringify(updatedCards));
-      setGiftCardID("");
-      setBookingConfirmed(true);
+      try {
+        await sendGiftCardEmail({
+          userName: user?.fullName || "Anonymous",
+          telegramUsername: selectedProfile,
+          giftCardID,
+        });
 
-      setTimeout(() => {
-        router.push("/nextlevel");
-      }, 2000);
+        setGiftCardID("");
+        setBookingConfirmed(true);
+
+        setTimeout(() => {
+          router.push("/nextlevel");
+        }, 2000);
+      } catch (error) {
+        console.error("Email send failed:", error);
+        alert("There was an issue sending your confirmation email. Please try again.");
+      }
     } else {
       alert("Please select a profile and enter a valid Gift Card ID before submitting.");
     }
@@ -51,17 +57,7 @@ export default function Explore() {
     if (isLoaded && !isSignedIn) {
       router.push("/login");
     }
-
-    if (isLoaded && isSignedIn) {
-      const isAdmin = user?.primaryEmailAddress?.emailAddress === "nightmadecoder@gmail.com";
-      setAdminView(isAdmin);
-
-      const savedCards = localStorage.getItem("submittedCards");
-      if (savedCards) {
-        setSubmittedCards(JSON.parse(savedCards));
-      }
-    }
-  }, [isLoaded, isSignedIn, router, user]);
+  }, [isLoaded, isSignedIn, router]);
 
   if (!isSignedIn) {
     return null;
@@ -90,7 +86,6 @@ export default function Explore() {
         <title>Explore | CasualCrave</title>
       </Head>
 
-      {/* Navbar */}
       <nav className="bg-gray-900 text-white px-6 py-4 shadow-md flex justify-between items-center w-full">
         <div className="flex space-x-8">
           <Link href="/" className="hover:text-pink-400 transition">
@@ -100,16 +95,15 @@ export default function Explore() {
             Mng
           </Link>
         </div>
-       {user?.imageUrl && (
-            <img
-              src={user.imageUrl}
-              alt="User Profile"
-              className="w-10 h-10 rounded-full border-2 border-pink-500"
-            />
-          )}
+        {user?.imageUrl && (
+          <img
+            src={user.imageUrl}
+            alt="User Profile"
+            className="w-10 h-10 rounded-full border-2 border-pink-500"
+          />
+        )}
       </nav>
 
-      {/* Main Content */}
       <main className="min-h-screen bg-gray-900 text-white py-28 px-6">
         <h2 className="text-4xl font-bold text-center text-pink-500 mb-12">
           Available Profiles
@@ -128,7 +122,6 @@ export default function Explore() {
                   ? "border-pink-500 ring-2 ring-pink-400"
                   : "border-gray-700 hover:border-pink-500"
               }`}
-              style={{ minWidth: 0 }}
             >
               <img
                 src={profile.image}
@@ -163,44 +156,41 @@ export default function Explore() {
             <li>💌 Fee gets applied to your full experience if you proceed</li>
           </ul>
 
-            {/* Booking Options */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center mt-8">
             {[
               {
-              id: "giftcard",
-              title: "Gift Cards",
-              desc: "Confirm availability, get Telegram access, and enjoy a discreet 1:1 vibe.",
-              price: "$100",
+                id: "giftcard",
+                title: "Gift Cards",
+                desc: "Confirm availability, get Telegram access, and enjoy a discreet 1:1 vibe.",
+                price: "$100",
               },
               {
-              id: "priority",
-              title: "Priority Booking",
-              desc: "Get priority access + a bonus surprise 😘",
-              price: "$150",
+                id: "priority",
+                title: "Priority Booking",
+                desc: "Get priority access + a bonus surprise 😘",
+                price: "$150",
               },
             ].map((plan) => (
               <div
-              key={plan.id}
-              onClick={() => setSelectedPlan(plan.id)}
-              className={`cursor-pointer bg-gray-700 p-6 rounded-xl shadow-lg border transition duration-300 relative ${
-                selectedPlan === plan.id
-                ? "border-4 border-pink-500 ring-2 ring-pink-400"
-                : "border-gray-600 hover:border-pink-500"
-              }`}
+                key={plan.id}
+                onClick={() => setSelectedPlan(plan.id)}
+                className={`cursor-pointer bg-gray-700 p-6 rounded-xl shadow-lg border transition duration-300 relative ${
+                  selectedPlan === plan.id
+                    ? "border-4 border-pink-500 ring-2 ring-pink-400"
+                    : "border-gray-600 hover:border-pink-500"
+                }`}
               >
-              {selectedPlan === plan.id && (
-                <FaCheckCircle className="absolute top-4 right-4 text-green-400 text-xl" />
-              )}
-              <h4 className="text-xl font-semibold mb-2 text-white">{plan.title}</h4>
-              <p className="text-gray-400 mb-4">{plan.desc}</p>
-              <div className="text-3xl font-bold text-pink-500 mb-2">{plan.price}</div>
+                {selectedPlan === plan.id && (
+                  <FaCheckCircle className="absolute top-4 right-4 text-green-400 text-xl" />
+                )}
+                <h4 className="text-xl font-semibold mb-2 text-white">{plan.title}</h4>
+                <p className="text-gray-400 mb-4">{plan.desc}</p>
+                <div className="text-3xl font-bold text-pink-500 mb-2">{plan.price}</div>
               </div>
             ))}
-            </div>
-     
+          </div>
 
-          {/* Payment Method Buttons */}
-          <div  id="payment" className="flex flex-wrap justify-center gap-4 my-6">
+          <div id="payment" className="flex flex-wrap justify-center gap-4 my-6">
             {["giftcard", "payId", "paypal", "wallet"].map((method) => (
               <button
                 key={method}
@@ -222,70 +212,53 @@ export default function Explore() {
             ))}
           </div>
 
-            {/* Gift Card Form or Loading Message */}
-            {["giftcard", "priority"].includes(selectedPlan) && (
+          {["giftcard", "priority"].includes(selectedPlan) && (
             <div className="space-y-4 text-left">
               <label className="block text-sm text-gray-300 mb-3">
-              Your Name (for booking)
-              <input
-                type="text"
-                value={user?.fullName || ""}
-                readOnly
-                className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
-              />
+                Your Name (for booking)
+                <input
+                  type="text"
+                  value={user?.fullName || ""}
+                  readOnly
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500"
+                />
               </label>
 
               <label className="block text-sm text-gray-300">
-              Enter Gift Card ID
-              <input
-                type="text"
-                value={giftCardID}
-                onChange={(e) => setGiftCardID(e.target.value)}
-                className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                placeholder="XXXX-XXXX-XXXX"
-              />
+                Enter Gift Card ID
+                <input
+                  type="text"
+                  value={giftCardID}
+                  onChange={(e) => setGiftCardID(e.target.value)}
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-pink-500"
+                  placeholder="XXXX-XXXX-XXXX"
+                />
               </label>
 
               <button
-              onClick={handleSubmitGiftCard}
-              className="mt-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full transition"
+                onClick={handleSubmitGiftCard}
+                className="mt-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full transition"
               >
-              Submit Gift Card
+                Submit Gift Card
               </button>
 
               {bookingConfirmed && selectedProfile && (
-              <div className="mt-4 p-4 bg-green-600 text-white rounded-lg shadow-lg animate-pulse">
-                ✅ Booking confirmed! Message{" "}
-                <span className="font-bold">@{selectedProfile}</span> on Telegram to start your experience.
-              </div>
+                <div className="mt-4 p-4 bg-green-600 text-white rounded-lg shadow-lg animate-pulse">
+                  ✅ Booking confirmed! Message{" "}
+                  <span className="font-bold">@{selectedProfile}</span> on Telegram to start your experience.
+                </div>
               )}
             </div>
-            )}
-
-            {/* Loading message for PayPal or PayId */}
-            {["paypal", "payId","wallet"].includes(selectedPlan) && isLoading && selectedProfile && (
-            <div className="mt-6 p-4 bg-gray-700 text-white rounded-lg shadow-lg text-center animate-pulse">
-              Request payment info from <span className="font-bold">@{selectedProfile}</span> on Telegram...
-            </div>
-            )}
-
-          {/* Admin Section */}
-          {adminView && submittedCards.length > 0 && (
-            <section className="mt-12 bg-gray-800 p-6 rounded-2xl max-w-3xl mx-auto shadow-lg">
-              <h3 className="text-2xl text-pink-500 font-bold mb-4">Submitted Gift Cards</h3>
-              <ul className="space-y-2 text-left">
-                {submittedCards.map((id, idx) => (
-                  <li
-                    key={idx}
-                    className="bg-gray-700 px-4 py-2 rounded-md text-white font-mono border border-pink-500"
-                  >
-                    {id}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm text-gray-500 italic">Note: Only admins can see this section.</p>
-            </section>
           )}
+
+          {["paypal", "payId", "wallet"].includes(selectedPlan) &&
+            isLoading &&
+            selectedProfile && (
+              <div className="mt-6 p-4 bg-gray-700 text-white rounded-lg shadow-lg text-center animate-pulse">
+                Request payment info from{" "}
+                <span className="font-bold">@{selectedProfile}</span> on Telegram...
+              </div>
+            )}
 
           <p className="mt-8 text-gray-500 text-sm text-center italic">
             Still unsure? DM us on <a href="">CasualCrave@gmail.com</a>. We're always down for clarity before connection 💬
