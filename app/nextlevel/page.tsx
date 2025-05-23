@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { motion } from 'framer-motion';
@@ -100,10 +101,6 @@ export default function NextLevel() {
     setAddedExperiences(prev => prev.filter(o => o.title !== offer.title));
   }
 
-  function proceedToPayment() {
-    localStorage.setItem('addedExperiences', JSON.stringify(addedExperiences));
-    router.push('/payment-methods');
-  }
 
   if (loading || !selectedProfile) {
     return <div className="text-center text-white py-20">Loading your experience...</div>;
@@ -167,8 +164,8 @@ export default function NextLevel() {
         {offers.map((offer, idx) => {
           const isAdded = addedExperiences.some(o => o.title === offer.title);
           const isFixed = fixedOffers.includes(offer.title);
-          const customPrice = Number(customPrices[offer.title]) || '';
-          const isValidCustomPrice = customPrice >= bargainThreshold;
+          const customPriceValue = Number(customPrices[offer.title]);
+          const isValidCustomPrice = !isNaN(customPriceValue) && customPriceValue >= bargainThreshold;
 
           return (
             <motion.div
@@ -213,10 +210,10 @@ export default function NextLevel() {
                   />
                   {isValidCustomPrice ? (
                     <button
-                      onClick={() => handleAddExperience(offer, customPrice)}
+                      onClick={() => handleAddExperience(offer, customPriceValue)}
                       className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition w-full"
                     >
-                      Accept Bargain (€{customPrice})
+                      Accept Bargain (€{customPriceValue})
                     </button>
                   ) : (
                     <button
@@ -251,12 +248,7 @@ export default function NextLevel() {
           <p className="text-lg font-bold text-white mb-6">
             Total: €{addedExperiences.reduce((sum, exp) => sum + exp.finalPrice, 0)}
           </p>
-          <button
-            onClick={proceedToPayment}
-            className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition"
-          >
-            Proceed to Payment
-          </button>
+        <p> request for arrangments with your selected Options.</p>
         </motion.div>
       )}
 

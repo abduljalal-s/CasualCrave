@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
@@ -118,17 +119,18 @@ export default function ManagementPage() {
             {/* Submission Logs */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-3">📥 Recent Submissions</h4>
-              <ul className="bg-gray-700 p-4 rounded-xl text-sm text-left space-y-2 font-mono max-h-48 overflow-y-auto">
-                {submittedCards.length > 0 ? (
-                  submittedCards.map((card, idx) => (
-                    
-                    <li key={idx} className="text-pink-400">{card}</li>
-                  ))
-                ) : (
-                  <li className="text-gray-400 italic">No gift cards submitted yet.</li>
-                  
-                )}
-      <button
+  <ul className="bg-gray-700 p-4 rounded-xl text-sm text-left space-y-2 font-mono max-h-48 overflow-y-auto">
+    {submittedCards.length > 0 ? (
+      submittedCards.map((card, idx) => (
+        
+        <li key={idx} className="text-pink-400">{card}</li>
+      ))
+    ) : (
+      <li className="text-gray-400 italic">No gift cards submitted yet.</li>
+      
+    )}
+  </ul>
+  <button
     onClick={() => {
       localStorage.removeItem("submittedCards");
       setSubmittedCards([]);
@@ -137,7 +139,6 @@ export default function ManagementPage() {
   >
     Clear All Gift Cards (Admin Only)
   </button>
-              </ul>
             </div>
           </section>
         )}
