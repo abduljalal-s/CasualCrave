@@ -171,13 +171,13 @@ export default function Explore() {
                 id: "giftcard",
                 title: "Gift Cards",
                 desc: "Confirm availability, get Telegram access, and enjoy a discreet 1:1 vibe.",
-                price: "€50",
+                price: "$50",
               },
               {
                 id: "priority",
                 title: "Priority Booking",
                 desc: "Get priority access + a bonus surprise 😘",
-                price: "€125",
+                price: "$125",
               },
             ].map((plan) => (
               <div
