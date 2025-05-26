@@ -68,15 +68,24 @@ export default function Explore() {
       name: "Kiara",
       age: 23,
       desc: "Adventurous and open-minded. Let’s vibe 🌙",
-      image: "/images/profile1.jpg",
+      image: "/images/kiara.png",
       telegram: "Kiara77990",
     },
+
     {
-      name: "Lexxie",
+      name : "emybaby",
+      age:"22",
+      desc: "Curious mind | 🍑 Spicy thoughts",
+      image: "/images/emy.jpg",
+      telegram: "SprinklePringle"
+    },
+
+    {
+      name: "sophied",
       age: 24,
       desc: "Let’s skip the small talk 😘",
-      image: "/images/profile2.jpg",
-      telegram: "kiara77990",
+      image: "/images/sophi.jpg",
+      telegram: "Sophied699",
     },
   ];
 

@@ -145,7 +145,7 @@ export default function NextLevel() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        Welcome to the Next Level 💫
+        Welcome  💫
       </motion.h1>
 
       <motion.p
