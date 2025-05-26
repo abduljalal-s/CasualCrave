@@ -74,7 +74,7 @@ export default function Explore() {
 
     {
       name : "emybaby",
-      age:"22",
+      age: 22,
       desc: "Curious mind | 🍑 Spicy thoughts",
       image: "/images/emy.jpg",
       telegram: "SprinklePringle"
