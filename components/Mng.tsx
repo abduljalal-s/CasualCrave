@@ -103,7 +103,7 @@ export default function ManagementPage() {
                   Continue via WhatsApp
                 </a>
                 <a
-                  href="https://getsession.o/"
+                  href="https://getsession.org/"
                   target="_blank"
                   className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition"
                 >
