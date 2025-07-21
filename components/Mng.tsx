@@ -297,7 +297,7 @@ export default function ManagementPage() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="https://t.me/@mayarealm"
+                  href="https://t.me/@alexcasualcrave"
                   target="_blank"
                   className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition animate-pulse"
                   onClick={handleClosePopout}
