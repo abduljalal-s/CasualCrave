@@ -144,7 +144,7 @@ export default function ManagementPage() {
 
           <div className="bg-gray-900 border border-pink-500 rounded-xl p-4 mt-4">
             <p className="text-sm text-gray-300">
-              <span className="font-semibold text-white">Sample Chat:</span> "Hi! I'm Alex, ready to verify your booking with {selected || 'your chosen profile'}."
+              <span className="font-semibold text-white">Chat:</span> Hi! I'm Alex, ready to verify your booking with {selected || 'your chosen profile'}.
             </p>
           </div>
 
