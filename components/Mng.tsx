@@ -108,7 +108,7 @@ export default function ManagementPage() {
         <title>Management | CasualCrave</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
-        <script src="https://cdn.tailwindcss.com"></script>
+        {/* Tailwind CSS should be configured via PostCSS or imported in globals.css */}
       </Head>
 
       <main className="bg-gray-900 text-white min-h-screen px-4 py-20 sm:py-24">
@@ -144,7 +144,7 @@ export default function ManagementPage() {
 
           <div className="bg-gray-900 border border-pink-500 rounded-xl p-4 mt-4">
             <p className="text-sm text-gray-300">
-              <span className="font-semibold text-white">Chat:</span> Hi! I'm Alex, ready to verify your booking with {selected || 'your chosen profile'}.
+              <span className="font-semibold text-white">Chat:</span> Hi! I&apos;m Alex, ready to verify your booking with {selected || 'your chosen profile'}.
             </p>
           </div>
 
@@ -260,7 +260,7 @@ export default function ManagementPage() {
               ) : (
                 <>
                   <p className="text-gray-300 mb-4">
-                    You're requesting to be submitted to management for: <span className="text-pink-400 font-semibold">{selected}</span>
+                    You&apos;re requesting to be submitted to management for: <span className="text-pink-400 font-semibold">{selected}</span>
                   </p>
                   <div className="flex justify-center gap-4">
                     <button
