@@ -1,12 +1,12 @@
 // import Hero from "@/components/Hero";
-import Mng from "@/components/Mng";
+import { LogIn } from "lucide-react";
 // import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>       
-      <main className="#">  
-        <Mng />
+      <main className="#">
+        <LogIn />
       </main>
     </>
 
