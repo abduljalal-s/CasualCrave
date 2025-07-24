@@ -1,0 +1,200 @@
+'use client';
+
+import { SignIn, SignUp } from '@clerk/nextjs';
+import { AnimatePresence, motion } from 'framer-motion';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+export default function AuthPage() {
+  const [isSignUp, setIsSignUp] = useState(true); // Toggle between Sign Up and Sign In
+  const [darkMode, setDarkMode] = useState(false); // Dark mode state
+  const [showTooltip, setShowTooltip] = useState(true); // Onboarding tooltip
+
+  // Initialize dark mode from local storage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setDarkMode(true);
+      document.documentElement.classList.add('dark');
+    }
+    const timer = setTimeout(() => setShowTooltip(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', darkMode ? 'light' : 'dark');
+  };
+
+  // Toggle between Sign Up and Sign In
+  const toggleAuthMode = () => {
+    setIsSignUp(!isSignUp);
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{isSignUp ? 'Sign Up' : 'Sign In'} | CasualCrave</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="Join or log in to CasualCrave to connect with verified profiles for casual meetups."
+        />
+        <meta name="keywords" content="casual meetups, social events, networking, sign up, log in" />
+        <meta property="og:title" content={`${isSignUp ? 'Sign Up' : 'Sign In'} | CasualCrave`} />
+        <meta
+          property="og:description"
+          content="Create an account or log in to start connecting with others for fun, low-pressure meetups."
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main
+        className={`flex flex-col items-center justify-center min-h-screen px-4 py-20 transition-colors ${
+          darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'
+        }`}
+      >
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={toggleDarkMode}
+          className="fixed top-4 right-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition"
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
+
+        {/* Onboarding Tooltip */}
+        <AnimatePresence>
+          {showTooltip && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-16 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white text-sm px-4 py-2 rounded-full shadow-lg z-20"
+            >
+              {isSignUp ? 'Create an account to start connecting!' : 'Log in to explore meetups!'}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Welcome Section */}
+        <section className="text-center max-w-2xl mx-auto mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+            {isSignUp ? 'Join' : 'Welcome Back to'} <span className="text-pink-500">CasualCrave</span>
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg mb-6">
+            {isSignUp
+              ? 'Sign up to connect with verified profiles for fun, low-pressure meetups. Your data is secure with us.'
+              : 'Log in to start exploring casual meetups and connecting with others.'}
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Managed by Alex for a safe and seamless experience.{' '}
+            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition">
+              Learn about our safety measures
+            </Link>.
+          </p>
+        </section>
+
+        {/* Auth Toggle */}
+        <div className="flex justify-center gap-4 mb-6">
+          <button
+            onClick={toggleAuthMode}
+            className={`px-6 py-2 rounded-full transition ${
+              isSignUp
+                ? 'bg-pink-500 text-white'
+                : 'bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white'
+            }`}
+            aria-label="Switch to Sign Up"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={toggleAuthMode}
+            className={`px-6 py-2 rounded-full transition ${
+              !isSignUp
+                ? 'bg-pink-500 text-white'
+                : 'bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white'
+            }`}
+            aria-label="Switch to Sign In"
+          >
+            Sign In
+          </button>
+        </div>
+
+        {/* Clerk Auth Component */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="w-full max-w-md bg-gray-200 dark:bg-gray-800 p-6 rounded-xl shadow-xl"
+        >
+          {isSignUp ? (
+            <SignUp
+              routing="hash"
+              afterSignUpUrl="/explore"
+              signInUrl="/auth"
+              appearance={{
+                elements: {
+                  formButtonPrimary: 'bg-pink-500 hover:bg-pink-600 text-white rounded-full py-2',
+                  card: 'bg-transparent shadow-none',
+                  headerTitle: 'hidden',
+                  headerSubtitle: 'hidden',
+                },
+              }}
+            />
+          ) : (
+            <SignIn
+              routing="hash"
+              afterSignInUrl="/explore"
+              signUpUrl="/auth"
+              appearance={{
+                elements: {
+                  formButtonPrimary: 'bg-pink-500 hover:bg-pink-600 text-white rounded-full py-2',
+                  card: 'bg-transparent shadow-none',
+                  headerTitle: 'hidden',
+                  headerSubtitle: 'hidden',
+                },
+              }}
+            />
+          )}
+        </motion.div>
+
+        {/* Social Proof */}
+        <section className="text-center max-w-2xl mx-auto mt-8">
+          <p className="text-gray-600 dark:text-gray-300 text-sm">
+            “CasualCrave made meeting new people so easy and fun!” – <span className="text-pink-500">Jane D.</span>
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">
+            Join over 1,000 users connecting through casual meetups!
+          </p>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-12 text-center text-gray-600 dark:text-gray-400 text-sm">
+          <p>
+            <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">
+              About Us
+            </Link>{' '}
+            |{' '}
+            <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition">
+              Privacy Policy
+            </Link>{' '}
+            |{' '}
+            <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition">
+              Terms of Service
+            </Link>{' '}
+            |{' '}
+            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition">
+              Safety Tips
+            </Link>
+          </p>
+          <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>
+        </footer>
+      </main>
+    </>
+  );
+}
