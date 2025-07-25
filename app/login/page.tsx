@@ -7,11 +7,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function AuthPage() {
-  const [isSignUp, setIsSignUp] = useState(true); // Toggle between Sign Up and Sign In
-  const [darkMode, setDarkMode] = useState(false); // Dark mode state
-  const [showTooltip, setShowTooltip] = useState(true); // Onboarding tooltip
+  const [isSignUp, setIsSignUp] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
 
-  // Initialize dark mode from local storage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -22,14 +21,12 @@ export default function AuthPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', darkMode ? 'light' : 'dark');
   };
 
-  // Toggle between Sign Up and Sign In
   const toggleAuthMode = () => {
     setIsSignUp(!isSignUp);
   };
@@ -58,7 +55,6 @@ export default function AuthPage() {
           darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'
         }`}
       >
-        {/* Dark Mode Toggle */}
         <button
           onClick={toggleDarkMode}
           className="fixed top-4 right-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition"
@@ -67,7 +63,6 @@ export default function AuthPage() {
           {darkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
 
-        {/* Onboarding Tooltip */}
         <AnimatePresence>
           {showTooltip && (
             <motion.div
@@ -81,7 +76,6 @@ export default function AuthPage() {
           )}
         </AnimatePresence>
 
-        {/* Welcome Section */}
         <section className="text-center max-w-2xl mx-auto mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
             {isSignUp ? 'Join' : 'Welcome Back to'} <span className="text-pink-500">CasualCrave</span>
@@ -99,7 +93,6 @@ export default function AuthPage() {
           </p>
         </section>
 
-        {/* Auth Toggle */}
         <div className="flex justify-center gap-4 mb-6">
           <button
             onClick={toggleAuthMode}
@@ -124,8 +117,7 @@ export default function AuthPage() {
             Sign In
           </button>
         </div>
-
-        {/* Clerk Auth Component */}
+      
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -135,7 +127,7 @@ export default function AuthPage() {
           {isSignUp ? (
             <SignUp
               routing="hash"
-              afterSignUpUrl="/explore"
+              afterSignUpUrl="/Mng"
               signInUrl="/auth"
               appearance={{
                 elements: {
@@ -149,7 +141,7 @@ export default function AuthPage() {
           ) : (
             <SignIn
               routing="hash"
-              afterSignInUrl="/explore"
+              afterSignInUrl="/Mng"
               signUpUrl="/auth"
               appearance={{
                 elements: {
@@ -163,7 +155,6 @@ export default function AuthPage() {
           )}
         </motion.div>
 
-        {/* Social Proof */}
         <section className="text-center max-w-2xl mx-auto mt-8">
           <p className="text-gray-600 dark:text-gray-300 text-sm">
             “CasualCrave made meeting new people so easy and fun!” – <span className="text-pink-500">Jane D.</span>
@@ -172,25 +163,13 @@ export default function AuthPage() {
             Join over 1,000 users connecting through casual meetups!
           </p>
         </section>
-
-        {/* Footer */}
+        
         <footer className="mt-12 text-center text-gray-600 dark:text-gray-400 text-sm">
           <p>
-            <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">
-              About Us
-            </Link>{' '}
-            |{' '}
-            <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition">
-              Privacy Policy
-            </Link>{' '}
-            |{' '}
-            <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition">
-              Terms of Service
-            </Link>{' '}
-            |{' '}
-            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition">
-              Safety Tips
-            </Link>
+            <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">About Us</Link> | 
+            <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Privacy Policy</Link> | 
+            <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition ml-2">Terms of Service</Link> | 
+            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition ml-2">Safety Tips</Link>
           </p>
           <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>
         </footer>
