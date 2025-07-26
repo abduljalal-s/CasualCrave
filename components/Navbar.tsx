@@ -66,9 +66,7 @@ export default function Navbar() {
             </div>
           ) : (
             <Link href="/login">
-              <button className="text-sm px-4 py-2 border border-white rounded-full hover:bg-pink-500 hover:border-pink-500 transition">
-                Join
-              </button>
+              
             </Link>
           )}
         </div>

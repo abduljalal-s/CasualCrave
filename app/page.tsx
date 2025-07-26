@@ -1,95 +1,62 @@
+// app/page.tsx
 'use client';
 
-import Navbar from '@/components/Navbar';
-import { useUser } from '@clerk/nextjs';
-import { motion } from 'framer-motion';
-import Head from 'next/head';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const { isSignedIn, isLoaded } = useUser();
-
-  if (!isLoaded) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-gray-100 dark:bg-gray-900">
-        <Navbar />
-        <div>Loading...</div>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <Head>
-        <title>Welcome to CasualCrave</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="description"
-          content="Join CasualCrave to connect with verified profiles for fun, low-pressure meetups."
-        />
-        <meta name="keywords" content="casual meetups, social events, networking" />
-        <meta property="og:title" content="Welcome to CasualCrave" />
-        <meta
-          property="og:description"
-          content="Connect with others for fun, low-pressure meetups. Join our community today!"
-        />
-        <meta property="og:image" content="/og-image.jpg" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <main className="flex flex-col items-center justify-center min-h-screen px-4 py-8 bg-gradient-to-br from-blue-50 to-purple-50 text-gray-900">
+      <header className="flex justify-between items-center w-full max-w-4xl mb-8">
+        <h1 className="text-3xl font-bold text-pink-500">CasualCrave</h1>
+        <div>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition text-sm">
+                Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
+        </div>
+      </header>
 
-      <div className="flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-        <Navbar />
+      <section className="text-center max-w-xl">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          Welcome to <span className="text-pink-500">CasualCrave</span>
+        </h2>
+        <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-6">
+          Connect with verified profiles for fun, low-pressure meetups.
+        </p>
+        <SignedOut>
+          <Link
+            href="/auth"
+            className="inline-block px-6 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition text-sm sm:text-base"
+          >
+            Get Started
+          </Link>
+        </SignedOut>
+        <SignedIn>
+          <Link
+            href="/mng"
+            className="inline-block px-6 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition text-sm sm:text-base"
+          >
+            Go to Dashboard
+          </Link>
+        </SignedIn>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-8"
-        >
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Welcome to <span className="text-pink-500 dark:text-pink-400">CasualCrave</span>
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg mb-6">
-            Connect with verified profiles for fun, low-pressure meetups. Join our community of over 1,000 users today!
-          </p>
-          {!isSignedIn ? (
-            <Link
-              href="/AuthPage"
-              className="inline-block px-6 py-2 bg-pink-500 dark:bg-pink-600 text-white rounded-full hover:bg-pink-600 dark:hover:bg-pink-700 transition"
-              
-            >
-              Get Started
-            </Link>
-          ) : (
-            <Link
-              href="/AuthPage"
-              className="inline-block px-6 py-2 bg-pink-500 dark:bg-pink-600 text-white rounded-full hover:bg-pink-600 dark:hover:bg-pink-700 transition"
-            >
-              Go to Dashboard
-            </Link>
-          )}
-        </motion.div>
-
-        <section className="text-center max-w-2xl mx-auto mb-8">
-          <p className="text-gray-600 dark:text-gray-300 text-sm">
-            “CasualCrave made meeting new people so easy and fun!” –{' '}
-            <span className="text-pink-500 dark:text-pink-400">Jane D.</span>
-          </p>
-        </section>
-
-        <footer className="mt-12 text-center text-gray-600 dark:text-gray-300 text-sm">
-          <p>
-            
-            <Link href="/about" className="text-pink-500 dark:text-pink-400 hover:text-pink-600 dark:hover:text-pink-500 transition">
-              About Us
-            </Link>{' '}
-     <Link href="/safety" className="text-pink-500 dark:text-pink-400 hover:text-pink-600 dark:hover:text-pink-500 transition">
-              Safety Tips
-            </Link>
-          </p>
-          <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>
-        </footer>
-      </div>
-    </>
+      <footer className="mt-12 text-center text-gray-600 text-xs sm:text-sm">
+        <p>
+          <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">About Us</Link> |{' '}
+          <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Privacy Policy</Link> |{' '}
+          <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition ml-2">Terms of Service</Link> |{' '}
+          <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition ml-2">Safety Tips</Link>
+        </p>
+        <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>
+      </footer>
+    </main>
   );
-}
+} 
