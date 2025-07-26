@@ -96,7 +96,7 @@ export default function AuthPage() {
             LogIn
           </button>
         </div>
-      
+        
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -106,7 +106,7 @@ export default function AuthPage() {
           {isSignUp ? (
             <SignUp
               routing="hash"
-              afterSignUpUrl="/Mng"
+              afterSignUpUrl="/auth"
               signInUrl="/auth"
               appearance={{
                 elements: {
@@ -120,7 +120,7 @@ export default function AuthPage() {
           ) : (
             <SignIn
               routing="hash"
-              afterSignInUrl="/Mng"
+              afterSignInUrl="/"
               signUpUrl="/auth"
               appearance={{
                 elements: {
