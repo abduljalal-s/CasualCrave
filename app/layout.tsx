@@ -6,9 +6,16 @@ import "./globals.css";
 
 const geistSans = localFont({
   src: [
-    { path: "../public/fonts/GeistSans-Regular.woff2", weight: "400" },
-    { path: "../public/fonts/GeistSans-Bold.woff2", weight: "700" },
-    // Add other weights as needed
+    {
+      path: "./public/fonts/GeistSans-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./public/fonts/GeistSans-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
   ],
   variable: "--font-geist-sans",
   display: "swap",
@@ -16,8 +23,16 @@ const geistSans = localFont({
 
 const geistMono = localFont({
   src: [
-    { path: "../public/fonts/GeistMono-Regular.woff2", weight: "400" },
-    { path: "../public/fonts/GeistMono-Bold.woff2", weight: "700" },
+    {
+      path: "./public/fonts/GeistMono-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./public/fonts/GeistMono-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
   ],
   variable: "--font-geist-mono",
   display: "swap",
