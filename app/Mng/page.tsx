@@ -462,8 +462,6 @@ export default function ManagementPage() {
         <footer className="mt-16 text-center text-gray-800 dark:text-gray-400 text-sm">
           <p>
             <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">About Us</Link> | 
-            <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Privacy Policy</Link> | 
-            <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition ml-2">Terms of Service</Link> | 
             <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition ml-2">Safety Tips</Link>
           </p>
           <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>

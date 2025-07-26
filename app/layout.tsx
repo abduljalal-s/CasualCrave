@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "casualcrave❤️‍🔥",
+  title: "casualcrave.au",
   description: "By casualcrave, for casualcrave",
 };
 

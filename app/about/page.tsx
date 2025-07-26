@@ -3,89 +3,105 @@
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 export default function AboutPage() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', darkMode ? 'light' : 'dark');
-  };
-
   return (
     <>
       <Head>
-        <title>About | CasualCrave</title>
+        <title>About Us | CasualCrave</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Learn about CasualCrave's mission to connect people through fun, low-pressure meetups." />
-        <meta name="keywords" content="casual meetups, social events, networking, about casualcrave" />
-        <meta property="og:title" content="About | CasualCrave" />
-        <meta property="og:description" content="Discover how CasualCrave brings people together with verified, safe meetups." />
+        <meta
+          name="description"
+          content="Learn about CasualCrave, the platform connecting people for fun, low-pressure meetups with a vibrant community."
+        />
+        <meta name="keywords" content="casual meetups, social platform, community, about CasualCrave" />
+        <meta property="og:title" content="About Us | CasualCrave" />
+        <meta
+          property="og:description"
+          content="Discover the mission behind CasualCrave and how we foster connections for casual meetups."
+        />
         <meta property="og:image" content="/og-image.jpg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={`min-h-screen px-4 py-20 sm:py-24 transition-colors ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
-        <button
-          onClick={toggleDarkMode}
-          className="fixed top-4 right-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition"
-          aria-label="Toggle dark mode"
-        >
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
+      <main className="min-h-screen bg-gray-900 text-gray-100">
+        <nav className="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <Link href="/auth" className="text-2xl font-bold text-pink-500">
+                CasualCrave
+              </Link>
+              <div className="flex gap-4 sm:gap-6">
+                <Link href="/login" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
+                  Login
+                </Link>
+                <Link href="/about" className="text-pink-500 font-medium transition text-sm sm:text-base">
+                  About
+                </Link>
+                <Link href="/terms-privacy" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
+                  Terms & Privacy
+                </Link>
+                <Link href="/safety" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
+                  Safety
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
 
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-16"
-        >
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            About <span className="text-pink-500">CasualCrave</span>
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg mb-6">
-            CasualCrave is your go-to platform for connecting with others through fun, low-pressure meetups. Whether it’s a coffee chat, a board game night, or a casual hike, we make social connections effortless and enjoyable.
-          </p>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg mb-6">
-            Our team, led by Alex, ensures every meetup is verified and secure. We’re passionate about fostering genuine connections in a safe, welcoming environment.
-          </p>
-          <Link
-            href="/login"
-            className="inline-block bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full transition"
-            aria-label="Join CasualCrave"
-          >
-            Join Now
-          </Link>
-        </motion.section>
-        
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-gray-200 dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl max-w-2xl mx-auto text-center"
-        >
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Our Mission</h2>
-          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
-            At CasualCrave, we believe everyone deserves meaningful connections without the stress. Our mission is to create a platform where people can meet, share experiences, and build friendships in a relaxed, authentic way.
-          </p>
-        </motion.section>
+        <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-800 to-gray-900">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
+            >
+              About <span className="text-pink-500">CasualCrave</span>
+            </motion.h1>
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-8">
+              CasualCrave is your go-to platform for sparking connections and creating unforgettable moments. We’re all about bringing people together for fun, low-pressure meetups that vibe with your lifestyle. Whether it’s a coffee catch-up or a spontaneous night out, our community is built on trust, inclusivity, and good times.
+            </p>
+          </div>
+        </section>
 
-        <footer className="mt-16 text-center text-gray-600 dark:text-gray-400 text-sm">
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">Our Mission</h2>
+            <p className="text-sm sm:text-base text-gray-400 text-center mb-12">
+              We’re here to make meeting new people effortless and exciting. Our mission is to foster a safe, vibrant community where mutuals can connect, share experiences, and shout out their favorite moments. Managed by Alex and our dedicated team, we prioritize your safety and privacy while keeping the energy high.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                className="bg-gray-800 p-6 rounded-lg shadow-lg"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-pink-500 mb-4">Community First</h3>
+                <p className="text-sm sm:text-base text-gray-300">
+                  Join over 1,000 users who’ve found their vibe with CasualCrave. From casual hangs to epic group meetups, our platform is all about real connections.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="bg-gray-800 p-6 rounded-lg shadow-lg"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-pink-500 mb-4">Vibrant Vibes</h3>
+                <p className="text-sm sm:text-base text-gray-300">
+                  “CasualCrave turned my weekends into adventures!” – <span className="text-pink-500">Sarah K.</span> Shout out your mutuals and make every meetup count.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+        <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-800 text-center text-gray-400 text-xs sm:text-sm">
           <p>
             <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">About Us</Link> | 
-            <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Privacy Policy</Link> | 
-            <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition ml-2">Terms of Service</Link> | 
-            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition ml-2">Safety Tips</Link>
+            <Link href="/terms-privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Terms & Privacy</Link> | 
+            <Link href="/safety" className="text-pink-500 hover:text-pink-600 transition ml-2">Safety</Link>
           </p>
           <p className="mt-2">© 2025 CasualCrave. All rights reserved.</p>
         </footer>
