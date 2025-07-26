@@ -64,7 +64,7 @@ const testimonials = [
 ];
 
 // Mock user preferences for personalization
-   
+
 export default function ManagementPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
@@ -90,7 +90,7 @@ export default function ManagementPage() {
       setTimeout(() => {
         setIsLoading(false);
         setShowPopout(true);
-      }, 7000);
+      }, 4500); // Reduced from 7000 to 4500ms
     }
   };
 
@@ -190,7 +190,7 @@ export default function ManagementPage() {
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
             Welcome to <span className="text-pink-500">CasualCrave</span> Management
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+          <p className="text-gray-800 dark:text-gray-300 text-base sm:text-lg mb-6">
             Discover and connect with verified profiles for casual meetups. Managed by Alex for a seamless experience.
           </p>
           <div className="mt-4">
@@ -200,7 +200,7 @@ export default function ManagementPage() {
                 style={{ width: `${(progress / 3) * 100}%` }}
               ></div>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-gray-800 dark:text-gray-400 text-xs mt-2">
               Progress: {progress}/3 steps (Search, Select, Connect)
             </p>
           </div>
@@ -209,7 +209,7 @@ export default function ManagementPage() {
         {/* About Section */}
         <section className="bg-gray-200 dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl max-w-2xl mx-auto text-center mb-16">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">About CasualCrave</h2>
-          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed mb-4">
+          <p className="text-gray-800 dark:text-gray-300 text-sm sm:text-base leading-relaxed mb-4">
             CasualCrave connects people for low-pressure, fun meetups. Our team, led by Alex, ensures every booking is verified and secure. Whether it’s a coffee chat or a group hangout, we make social connections effortless.
           </p>
           <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">
@@ -224,7 +224,7 @@ export default function ManagementPage() {
             {testimonials.map((testimonial, idx) => (
               <SwiperSlide key={idx}>
                 <div className="bg-gray-200 dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">“{testimonial.quote}”</p>
+                  <p className="text-gray-800 dark:text-gray-300 text-sm mb-2">“{testimonial.quote}”</p>
                   <p className="text-pink-500 font-semibold">{testimonial.name}</p>
                 </div>
               </SwiperSlide>
@@ -280,7 +280,7 @@ export default function ManagementPage() {
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-md z-10 flex flex-col justify-center items-center rounded-xl group-hover:bg-black/40 transition">
                       <div className="text-gray-900 dark:text-white text-5xl font-bold mb-2">{profile.name.charAt(0).toUpperCase()}</div>
                       <p className="text-pink-400 text-base">Tap to view</p>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <p className="text-gray-800 dark:text-gray-400 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         {profile.desc.substring(0, 30)}...
                       </p>
                     </div>
@@ -289,7 +289,7 @@ export default function ManagementPage() {
                   <div className={`${selected !== profile.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                     <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">{profile.name}</h3>
                     <p className="text-pink-400 text-base mb-3">{profile.role}</p>
-                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed mb-4">{profile.desc}</p>
+                    <p className="text-gray-800 dark:text-gray-400 text-base leading-relaxed mb-4">{profile.desc}</p>
                     <div className="flex flex-col items-center gap-2">
                       <span className="text-sm text-green-400">{profile.lastActive}</span>
                       <div className="flex gap-1 text-yellow-400 text-lg">{getStarRating(profile.bookings)}</div>
@@ -313,7 +313,7 @@ export default function ManagementPage() {
             >
               <span className="text-4xl mb-4 text-pink-500">🤝</span>
               <h3 className="text-xl font-semibold mb-2">Foster Connections</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">We aim to create meaningful, low-pressure meetups for everyone to build lasting relationships.</p>
+              <p className="text-gray-800 dark:text-gray-300 text-sm">We aim to create meaningful, low-pressure meetups for everyone to build lasting relationships.</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -323,7 +323,7 @@ export default function ManagementPage() {
             >
               <span className="text-4xl mb-4 text-pink-500">🔒</span>
               <h3 className="text-xl font-semibold mb-2">Ensure Safety</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">Every profile is verified by Alex to provide a secure and trustworthy environment.</p>
+              <p className="text-gray-800 dark:text-gray-300 text-sm">Every profile is verified by Alex to provide a secure and trustworthy environment.</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -333,7 +333,7 @@ export default function ManagementPage() {
             >
               <span className="text-4xl mb-4 text-pink-500">🌐</span>
               <h3 className="text-xl font-semibold mb-2">Build Community</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">We strive to grow a vibrant community where people can share experiences and grow together.</p>
+              <p className="text-gray-800 dark:text-gray-300 text-sm">We strive to grow a vibrant community where people can share experiences and grow together.</p>
             </motion.div>
           </div>
           <div className="text-center mt-6">
@@ -374,12 +374,12 @@ export default function ManagementPage() {
           >
             <div className="bg-gray-200 dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full text-center">
               {isLoading ? (
-                <div className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                <div className="text-gray-800 dark:text-gray-400 text-sm mb-4">
                   Loading profile information... Please wait.
                 </div>
               ) : (
                 <>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  <p className="text-gray-800 dark:text-gray-300 mb-4">
                     You&apos;re requesting to be submitted to management for: <span className="text-pink-400 font-semibold">{selected}</span>
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
@@ -403,7 +403,7 @@ export default function ManagementPage() {
               )}
               <button
                 onClick={handleClosePopout}
-                className="mt-4 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+                className="mt-4 text-gray-800 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
                 aria-label="Cancel profile selection"
               >
                 Cancel
@@ -421,7 +421,7 @@ export default function ManagementPage() {
             className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           >
             <div className="bg-gray-200 dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full text-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-gray-800 dark:text-gray-400 text-sm mb-4">
                 You’re requesting access to <span className="font-semibold text-gray-900 dark:text-white">{selected}</span>. Alex must authorize communication.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
@@ -435,7 +435,7 @@ export default function ManagementPage() {
                   Continue via Telegram
                 </a>
                 <a
-                  href="https://wa.me/+61485990839"
+                  href="https://wa.me/+61485978227"
                   target="_blank"
                   className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition animate-pulse"
                   onClick={handleClosePopout}
@@ -444,12 +444,12 @@ export default function ManagementPage() {
                   Continue via WhatsApp
                 </a>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-500 mt-4">
+              <p className="text-gray-800 dark:text-gray-500 text-xs mt-4">
                 Permission-based. Alex will confirm availability before connecting you.
               </p>
               <button
                 onClick={handleClosePopout}
-                className="mt-4 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+                className="mt-4 text-gray-800 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
                 aria-label="Cancel connection"
               >
                 Cancel
@@ -459,7 +459,7 @@ export default function ManagementPage() {
         )}
 
         {/* Footer with Privacy, Terms, and Safety Links */}
-        <footer className="mt-16 text-center text-gray-600 dark:text-gray-400 text-sm">
+        <footer className="mt-16 text-center text-gray-800 dark:text-gray-400 text-sm">
           <p>
             <Link href="/about" className="text-pink-500 hover:text-pink-600 transition">About Us</Link> | 
             <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition ml-2">Privacy Policy</Link> | 

@@ -30,7 +30,7 @@ export default function AuthPage() {
   const toggleAuthMode = () => {
     setIsSignUp(!isSignUp);
   };
-  
+
   return (
     <>
       <Head>
@@ -127,7 +127,7 @@ export default function AuthPage() {
           {isSignUp ? (
             <SignUp
               routing="hash"
-              afterSignUpUrl="/mng" // Updated to redirect to /mng after signup
+              afterSignUpUrl="/Mng"
               signInUrl="/auth"
               appearance={{
                 elements: {
@@ -141,7 +141,7 @@ export default function AuthPage() {
           ) : (
             <SignIn
               routing="hash"
-              afterSignInUrl="/mng" // Updated to redirect to /mng after signin
+              afterSignInUrl="/Mng"
               signUpUrl="/auth"
               appearance={{
                 elements: {

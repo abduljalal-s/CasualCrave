@@ -54,7 +54,7 @@ export default function Navbar() {
                 <span className="text-gray-300 text-sm hidden sm:inline">
                   Hi, {user.firstName || ""}
                 </span>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton afterSignOutUrl="/Home" />
               </>
             ) : (
               <Link href="/login">
@@ -81,7 +81,7 @@ export default function Navbar() {
           <Link href="/mng" onClick={() => setMenuOpen(false)} className="block hover:text-pink-400 transition">Mng</Link>
 
           <hr className="border-gray-700" />
-
+          
           {isSignedIn ? (
             <div className="flex items-center space-x-3">
               <span className="text-gray-300 text-sm">Hi, {user.firstName || "User"}!</span>
@@ -94,4 +94,4 @@ export default function Navbar() {
       )}
     </nav>
   );
-}
+} 
