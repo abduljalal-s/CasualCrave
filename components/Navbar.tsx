@@ -56,7 +56,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center space-x-8 font-semibold">
           <Link href="/about" className="hover:text-pink-400 transition">About</Link>
-          <Link href="/terms" className="hover:text-pink-400 transition">Terms & Policy</Link>
+          <Link href="/privacy" className="hover:text-pink-400 transition">Terms & Policy</Link>
           {isSignedIn ? (
             <div className="flex items-center space-x-2">
               <span className="text-gray-300 text-sm">

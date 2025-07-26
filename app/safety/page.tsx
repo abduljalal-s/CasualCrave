@@ -32,13 +32,13 @@ export default function SafetyPage() {
                 CasualCrave
               </Link>
               <div className="flex gap-4 sm:gap-6">
-                <Link href="/auth" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
+                <Link href="/" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
                   Home
                 </Link>
                 <Link href="/about" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
                   About
                 </Link>
-                <Link href="/terms-privacy" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
+                <Link href="/privacy" className="text-gray-300 hover:text-pink-500 transition text-sm sm:text-base">
                   Terms & Privacy
                 </Link>
                 <Link href="/safety" className="text-pink-500 font-medium transition text-sm sm:text-base">
